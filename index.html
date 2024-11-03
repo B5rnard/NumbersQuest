@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number Quest</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="gameContent" class="game-content">
+        <h1>Number Quest</h1>
+        
+        <div class="status-container">
+            <div class="status-item">
+                <span class="status-label">Target</span>
+                <span class="status-value" id="targetNumber">0</span>
+            </div>
+            <div class="status-item">
+                <span class="status-label">Moves Left</span>
+                <span class="status-value" id="movesLeft">4</span>
+            </div>
+        </div>
+
+        <div id="numberGrid" class="grid-container">
+            <!-- Grid cells will be added by JavaScript -->
+        </div>
+
+        <div class="controls">
+            <button class="operation-button" data-operation="+">+</button>
+            <button class="operation-button" data-operation="-">−</button>
+            <button class="operation-button" data-operation="×">×</button>
+            <button class="operation-button" data-operation="÷">÷</button>
+        </div>
+
+        <div id="history" class="history">
+            <!-- History items will be added by JavaScript -->
+        </div>
+
+        <div class="button-container">
+            <button id="resetButton" class="reset-button">New Game</button>
+            <button id="resetPuzzleButton" class="reset-button">Reset</button>
+            <button id="showSolutionButton" class="solution-button">Solution</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
