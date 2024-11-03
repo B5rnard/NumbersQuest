@@ -49,23 +49,33 @@ function shuffleArray(array) {
 }
 
 // Generate a solution
+// Generate a solution
 function generateSolution() {
     while (true) {
         try {
             // 1. Generate 8 random numbers between 1-9
             let numbers = Array.from({ length: 8 }, () => Math.floor(Math.random() * 9) + 1);
             
-            // 2. Shuffle operations but prioritize multiplication early
-            let operations = shuffleArray(['×', '×', '+', '÷']);
+            // 2. Generate all possible operations, ensuring each can only be used once
+            let operations = ['+', '-', '×', '÷'];
             
-            // 3. Try to build a valid solution
+            // 3. Shuffle operations
+            operations = shuffleArray(operations);
+            let usedOperations = new Set();
+            
+            // 4. Try to build a valid solution
             let steps = [];
             let result = numbers[0];
             
-            // 4. Apply each operation sequentially
+            // 5. Apply each operation sequentially
             for (let i = 0; i < 4; i++) {
                 const nextNum = numbers[i + 1];
                 const operation = operations[i];
+                
+                // Verify operation hasn't been used before
+                if (usedOperations.has(operation)) {
+                    throw new Error('Operation already used');
+                }
                 
                 // Check operation constraints
                 if (operation === '-' && result <= nextNum) {
@@ -83,7 +93,7 @@ function generateSolution() {
                     throw new Error('Invalid intermediate result');
                 }
                 
-                // Store the step
+                // Store the step and mark operation as used
                 steps.push({
                     num1: result,
                     num2: nextNum,
@@ -91,12 +101,18 @@ function generateSolution() {
                     result: newResult
                 });
                 
+                usedOperations.add(operation);
                 result = newResult;
             }
             
             // If the final target is too small, try again
             if (result < 15) {
                 throw new Error('Target too small');
+            }
+            
+            // Verify we used exactly one of each operation
+            if (usedOperations.size !== 4) {
+                throw new Error('Not all operations used exactly once');
             }
             
             // If we get here, we have a valid solution!
